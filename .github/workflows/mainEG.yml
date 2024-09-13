@@ -1,4 +1,4 @@
-name: Build All Android Demos and Run Corellium MATRIX
+name: Build All Android Demos
 
 on:
   workflow_dispatch:
@@ -37,14 +37,14 @@ jobs:
       - name: Print matrix
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
 
-  build-and-test:
+  build:
     needs: generate-matrix
     runs-on: ubuntu-latest
     timeout-minutes: 60  # Increase this value as needed
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
-      max-parallel: 1  # Limit the number of parallel jobs
-
+      max-parallel: 3  # Limit the number of parallel jobs
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
 
       - name: List generated APK
         run: |
-          echo "Listing generated APK:"
+          echo "Listing generated APK in demos/android directory:"
           ls -l "${{ env.APK_NAME }}" || echo "No APK found."
 
       - name: Upload APK
@@ -100,23 +100,3 @@ jobs:
         with:
           name: ${{ env.APK_NAME }}
           path: "${{ env.APK_NAME }}"
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Run Corellium MATRIX
-        uses: jyamadaCore/matrix@v2.1.2
-        env:
-          PROJECT: ${{ secrets.CORELLIUM_PROJECT }}
-          API_TOKEN: ${{ secrets.CORELLIUM_API_TOKEN }}
-        with:
-          deviceFlavor: 'ranchu'                   # Android device flavor
-          deviceOS: '14.0.0'                       # Android OS version
-          server: 'https://marketing.enterprise.corellium.com'
-          appPath: '${{ env.APK_NAME }}'           # Path to the generated APK
-          userActions: 'test/user-actions.json'    # Provide appropriate path or content
-          keywords: 'test/keywords.txt'            # Provide appropriate path or content
-          reportFormat: 'json'
-          bundleId: 'com.corellium.cafe'           # Update if your APK has a different bundle ID

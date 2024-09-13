@@ -43,7 +43,7 @@ jobs:
     timeout-minutes: 60  # Increase this value as needed
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
-      max-parallel: 1  # Limit the number of parallel jobs
+      max-parallel: 3  # Limit the number of parallel jobs
 
     steps:
       - name: Checkout repository
@@ -114,9 +114,10 @@ jobs:
         with:
           deviceFlavor: 'ranchu'                   # Android device flavor
           deviceOS: '14.0.0'                       # Android OS version
-          server: 'https://marketing.enterprise.corellium.com'
+          server: 'https://jedi.enterprise.corellium.com'
           appPath: '${{ env.APK_NAME }}'           # Path to the generated APK
           userActions: 'test/user-actions.json'    # Provide appropriate path or content
           keywords: 'test/keywords.txt'            # Provide appropriate path or content
+          existingInstance: 'bb3f1762-6c41-461c-b384-1175aee3aa9e'  # Replace with your instance ID
           reportFormat: 'json'
           bundleId: 'com.corellium.cafe'           # Update if your APK has a different bundle ID
