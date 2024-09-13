@@ -1,0 +1,83 @@
+[
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[78, 201]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[211, 407]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[107, 670]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[290, 562]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "text": "admin",
+        "wait": 500
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[175, 685]],
+        "wait": 500
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "password",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[549, 836]],
+        "wait": 500
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[578, 1360]],
+        "wait": 500
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    }
+]
+
+

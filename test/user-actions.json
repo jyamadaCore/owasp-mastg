@@ -1,0 +1,172 @@
+[
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[808, 2570]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[654, 1229]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[610, 1281]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[1121, 2579]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[348, 948]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "CorelliumizAwesome",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[959, 959]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[556, 1132]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[287, 1150]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "John",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[841, 1146]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "Smith",
+        "wait": 500
+    },
+    {
+        
+        "buttons": ["finger"],
+        "position": [[567, 1328]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "1234567891011121",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[341, 1508]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "112",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[914, 1513]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "12345",
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[636, 1696]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "text": "1112223333",
+        "wait": 500
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[610, 1858]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[641, 1491]],
+        "wait": 2000
+    }
+]
+
+
