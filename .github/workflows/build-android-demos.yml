@@ -1,4 +1,4 @@
-name: Build All Android Demos
+name: Build All Android Demos and Run Corellium MATRIX
 
 on:
   workflow_dispatch:
@@ -28,7 +28,12 @@ jobs:
           demos=$(find demos/android -type d -name "MASTG-DEMO-*")
           matrix="{\"demo\":["
           for demo in $demos; do
-            matrix="${matrix}\"$demo\","
+            script_path=$(find "$demo" -type f -name "script.js" | head -n 1)
+            if [ -z "$script_path" ]; then
+              echo "No Frida script found for $demo, skipping..."
+              continue
+            fi
+            matrix="${matrix}{\"path\":\"$demo\",\"fridaScriptPath\":\"$script_path\"},"
           done
           matrix="${matrix%,}]}"
           echo "matrix=$matrix" >> $GITHUB_ENV
@@ -37,14 +42,14 @@ jobs:
       - name: Print matrix
         run: echo "${{ steps.set-matrix.outputs.matrix }}"
 
-  build:
+  build-and-test:
     needs: generate-matrix
     runs-on: ubuntu-latest
-    timeout-minutes: 60  # Increase this value as needed
+    timeout-minutes: 60
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
-      max-parallel: 3  # Limit the number of parallel jobs
-    
+      max-parallel: 1
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -60,7 +65,7 @@ jobs:
 
       - name: Replace files and build APK
         run: |
-          demo="${{ matrix.demo }}"
+          demo="${{ matrix.demo.path }}"
           if [ -d "$demo" ]; then
             echo "Processing $demo"
             [ -f "$demo/MastgTest.kt" ] && cp -f "$demo/MastgTest.kt" MASTestApp-Android/app/src/main/java/org/owasp/mastestapp/MastgTest.kt && echo "Copied MastgTest.kt for $demo" || echo "No MastgTest.kt found for $demo"
@@ -88,11 +93,11 @@ jobs:
 
       - name: Set APK name variable
         id: set_apk_name
-        run: echo "APK_NAME=$(basename ${{ matrix.demo }}).apk" >> $GITHUB_ENV
+        run: echo "APK_NAME=$(basename ${{ matrix.demo.path }}).apk" >> $GITHUB_ENV
 
       - name: List generated APK
         run: |
-          echo "Listing generated APK in demos/android directory:"
+          echo "Listing generated APK:"
           ls -l "${{ env.APK_NAME }}" || echo "No APK found."
 
       - name: Upload APK
@@ -100,3 +105,31 @@ jobs:
         with:
           name: ${{ env.APK_NAME }}
           path: "${{ env.APK_NAME }}"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Corellium MATRIX
+        env:
+          CORELLIUM_API_TOKEN: ${{ secrets.CORELLIUM_API_TOKEN }}
+          CORELLIUM_USER: ${{ secrets.CORELLIUM_USER }}
+          CORELLIUM_PASSWORD: ${{ secrets.CORELLIUM_PASSWORD }}
+          CORELLIUM_PROJECT: ${{ secrets.CORELLIUM_PROJECT }}
+        run: |
+          node main.js --user "${{ secrets.CORELLIUM_USER }}" --password "${{ secrets.CORELLIUM_PASSWORD }}" \
+          --project "${{ secrets.CORELLIUM_PROJECT_NAME }}" --instance "${{ secrets.CORELLIUM_INSTANCE_ID }}" \
+          --command "frida" --fridaScriptPath "${{ matrix.demo.fridaScriptPath }}" \
+          --appPath "${{ env.APK_NAME }}" --deviceFlavor "ranchu" --deviceOS "14.0.0" \
+          --server "https://marketing.enterprise.corellium.com" --userActions "test/user-actions.json" \
+          --keywords "test/keywords.txt" --reportFormat "json" --bundleId "com.corellium.cafe"
+
+      - name: Upload MATRIX Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-report
+          path: "report.json"
