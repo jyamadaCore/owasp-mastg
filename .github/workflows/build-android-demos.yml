@@ -109,10 +109,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci || npm install
 
       - name: Run Corellium MATRIX
         env:
@@ -125,8 +126,8 @@ jobs:
           --project "${{ secrets.CORELLIUM_PROJECT_NAME }}" --instance "${{ secrets.CORELLIUM_INSTANCE_ID }}" \
           --command "frida" --fridaScriptPath "${{ matrix.demo.fridaScriptPath }}" \
           --appPath "${{ env.APK_NAME }}" --deviceFlavor "ranchu" --deviceOS "14.0.0" \
-          --server "https://marketing.enterprise.corellium.com" --userActions "test/user-actions.json" \
-          --keywords "test/keywords.txt" --reportFormat "json" --bundleId "com.corellium.cafe"
+          --server "https://marketing.enterprise.corellium.com" --userActions "clickStart.json" \
+          --keywords "test/keywords.txt" --reportFormat "json" --bundleId "com.corellium.Cafe"
 
       - name: Upload MATRIX Report
         uses: actions/upload-artifact@v4

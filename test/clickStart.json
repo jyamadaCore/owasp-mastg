@@ -1,0 +1,15 @@
+[
+    {
+        "buttons": [],
+        "wait": 500
+    },
+    {
+        "buttons": ["finger"],
+        "position": [[398, 1110]],
+        "wait": 2000
+    },
+    {
+        "buttons": [],
+        "wait": 250
+    }
+]
