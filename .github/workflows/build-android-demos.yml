@@ -115,6 +115,9 @@ jobs:
         run: |
           npm ci || npm install
 
+      - name: Build Project
+        run: npm run build
+
       - name: Run Corellium MATRIX
         env:
           CORELLIUM_API_TOKEN: ${{ secrets.CORELLIUM_API_TOKEN }}
@@ -122,7 +125,7 @@ jobs:
           CORELLIUM_PASSWORD: ${{ secrets.CORELLIUM_PASSWORD }}
           CORELLIUM_PROJECT: ${{ secrets.CORELLIUM_PROJECT }}
         run: |
-          node main.js --user "${{ secrets.CORELLIUM_USER }}" --password "${{ secrets.CORELLIUM_PASSWORD }}" \
+          node dist/main.js --user "${{ secrets.CORELLIUM_USER }}" --password "${{ secrets.CORELLIUM_PASSWORD }}" \
           --project "${{ secrets.CORELLIUM_PROJECT_NAME }}" --instance "${{ secrets.CORELLIUM_INSTANCE_ID }}" \
           --command "frida" --fridaScriptPath "${{ matrix.demo.fridaScriptPath }}" \
           --appPath "${{ env.APK_NAME }}" --deviceFlavor "ranchu" --deviceOS "14.0.0" \
