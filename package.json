@@ -1,6 +1,6 @@
 {
     "name": "owasp-corellium-integration",
-    "version": "1.0.0",
+    "version": "v0.1",
     "description": "A TypeScript project for Android demo builds and Corellium MATRIX integration.",
     "main": "dist/index.js",
     "scripts": {
